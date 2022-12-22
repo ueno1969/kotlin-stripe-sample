@@ -4,7 +4,7 @@ import com.example.domain.entity.Content
 import com.example.usecase.ListContentUseCase
 
 data class ContentView(
-    val id: Int,
+    val id: String,
     val name: String,
     val price: Int
 ) {

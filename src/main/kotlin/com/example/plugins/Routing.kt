@@ -2,6 +2,7 @@ package com.example.plugins
 
 import com.example.contoroller.contents.ContentController
 import com.example.contoroller.contents.ContentsView
+import com.example.domain.infrastructure.api.StripeClient
 import com.example.domain.infrastructure.dao.ContentRepositoryImpl
 import com.example.usecase.ListContentUseCase
 import io.ktor.server.routing.*
@@ -12,7 +13,8 @@ import io.ktor.server.response.*
 fun Application.configureRouting() {
     routing {
         get("/") {
-            val contentRepository = ContentRepositoryImpl()
+            val stripeClient = StripeClient()
+            val contentRepository = ContentRepositoryImpl(stripeClient)
             val listContentUseCase = ListContentUseCase(contentRepository)
             val contentController = ContentController(
                 listContentUseCase = listContentUseCase
