@@ -1,6 +1,7 @@
 package com.example.domain.infrastructure.api
 
 import com.example.domain.entity.Content
+import com.example.domain.infrastructure.dao.StripeClient
 import io.ktor.serialization.*
 import io.ktor.utils.io.errors.*
 import kotlinx.serialization.*
@@ -53,7 +54,7 @@ data class PriceDTO(
     val active: Boolean,
 )
 
-class StripeClient {
+class StripeClientImpl: StripeClient {
     private val client = OkHttpClient()
     private val baseRequest =
         Request.Builder()
@@ -65,7 +66,7 @@ class StripeClient {
         return HttpUrl.Builder().scheme("https").host("api.stripe.com").addPathSegment("v1")
     }
 
-    fun listAllProducts(): List<Content> {
+    override fun listAllProducts(): List<Content> {
         val listProductsRequest =
             baseRequest.url(baseUrl().addPathSegment("products").build()).get().build()
         val listProductsResponseBody = client.newCall(listProductsRequest).execute().body

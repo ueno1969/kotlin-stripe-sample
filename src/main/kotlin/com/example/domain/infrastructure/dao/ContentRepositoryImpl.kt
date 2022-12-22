@@ -1,8 +1,12 @@
 package com.example.domain.infrastructure.dao
 
 import com.example.domain.entity.Content
-import com.example.domain.infrastructure.api.StripeClient
+import com.example.domain.infrastructure.api.StripeClientImpl
 import com.example.domain.repository.ContentRepository
+
+interface StripeClient {
+    fun listAllProducts(): List<Content>
+}
 
 class ContentRepositoryImpl(
     private val stripeClient: StripeClient,
